@@ -587,7 +587,7 @@ video {
 
 .btn-1:active {
   --tw-bg-opacity: 1;
-  background-color: rgba(244, 114, 182, var(--tw-bg-opacity));
+  background-color: rgba(251, 191, 36, var(--tw-bg-opacity));
 }
 
 .btn-1 {
@@ -612,7 +612,7 @@ video {
 
 .btn-2:active {
   --tw-bg-opacity: 1;
-  background-color: rgba(244, 114, 182, var(--tw-bg-opacity));
+  background-color: rgba(251, 191, 36, var(--tw-bg-opacity));
 }
 
 .btn-2 {
