@@ -10,6 +10,7 @@ const quote = document.getElementById("quote");
 const stop = document.getElementById("stop");
 const orders = document.getElementById("orders");
 const clear = document.getElementById("clear");
+const refresh = document.getElementById("refresh");
 
 // --------------------------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------------------------- //
@@ -38,6 +39,14 @@ quote.addEventListener('click', getQuote);
 
 clear.addEventListener('click', () => {
     $('#table > tbody').empty();
+});
+
+// --------------------------------------------------------------------------------------------- //
+// --------------------------------------------------------------------------------------------- //
+// --------------------------------------------------------------------------------------------- //
+
+refresh.addEventListener('click', () => {
+    location.reload();
 });
 
 // --------------------------------------------------------------------------------------------- //

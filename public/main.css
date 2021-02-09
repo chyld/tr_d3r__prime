@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+
+.btn-1 {
+    @apply bg-green-400 hover:text-white active:bg-pink-400 px-5 py-1 border-black border-t-2;
+  }
+
+.btn-2 {
+    @apply bg-blue-400 hover:text-white active:bg-pink-400 px-5 py-1 border-black border-t-2;
+}
+
+.btn-3 {
+    @apply bg-gray-400 hover:text-white active:bg-yellow-400 px-5 py-1 border-black border-t-2;
+}
+
+@tailwind utilities;

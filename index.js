@@ -19,7 +19,8 @@ var configuration = {
     consumer_key: process.env.CONSUMER_KEY,
     consumer_secret: process.env.CONSUMER_SECRET,
     access_token: process.env.ACCESS_TOKEN,
-    access_secret: process.env.ACCESS_SECRET
+    access_secret: process.env.ACCESS_SECRET,
+    account: process.env.ACCOUNT
 }
 
 var tradeking_consumer = new oauth.OAuth(
@@ -50,12 +51,12 @@ function buy(req, res) {
     const { symbol, quantity } = req.body;
 
     tradeking_consumer.post(
-        configuration.api_url + '/accounts/39060524/orders.json',
+        configuration.api_url + `/accounts/${configuration.account}/orders.json`,
         configuration.access_token,
         configuration.access_secret,
         `
         <FIXML xmlns="http://www.fixprotocol.org/FIXML-5-0-SP2">
-            <Order TmInForce="0" Typ="1" Side="1" Acct="39060524">
+            <Order TmInForce="0" Typ="1" Side="1" Acct="${configuration.account}">
                 <Instrmt SecTyp="CS" Sym="${symbol}"/>
                 <OrdQty Qty="${quantity}"/>
             </Order>
@@ -75,12 +76,12 @@ function sell(req, res) {
     const { symbol, quantity } = req.body;
 
     tradeking_consumer.post(
-        configuration.api_url + '/accounts/39060524/orders.json',
+        configuration.api_url + `/accounts/${configuration.account}/orders.json`,
         configuration.access_token,
         configuration.access_secret,
         `
         <FIXML xmlns="http://www.fixprotocol.org/FIXML-5-0-SP2">
-            <Order TmInForce="0" Typ="1" Side="2" Acct="39060524">
+            <Order TmInForce="0" Typ="1" Side="2" Acct="${configuration.account}">
                 <Instrmt SecTyp="CS" Sym="${symbol}"/>
                 <OrdQty Qty="${quantity}"/>
             </Order>
@@ -101,7 +102,7 @@ function stop(req, res) {
 
     const order = `
         <FIXML xmlns="http://www.fixprotocol.org/FIXML-5-0-SP2">
-            <Order TmInForce="0" Typ="3" Side="2" StopPx="${stoppx}" Acct="39060524">
+            <Order TmInForce="0" Typ="3" Side="2" StopPx="${stoppx}" Acct="${configuration.account}">
                 <Instrmt SecTyp="CS" Sym="${symbol}"/>
                 <OrdQty Qty="${quantity}"/>
             </Order>
@@ -110,7 +111,7 @@ function stop(req, res) {
 
     const change = `
         <FIXML xmlns="http://www.fixprotocol.org/FIXML-5-0-SP2">
-            <OrdCxlRplcReq TmInForce="0" Typ="3" Side="2" StopPx="${stoppx}" Acct="39060524" OrigID="${origid}">
+            <OrdCxlRplcReq TmInForce="0" Typ="3" Side="2" StopPx="${stoppx}" Acct="${configuration.account}" OrigID="${origid}">
                 <Instrmt SecTyp="CS" Sym="${symbol}"/>
                 <OrdQty Qty="${quantity}"/>
             </OrdCxlRplcReq>
@@ -120,7 +121,7 @@ function stop(req, res) {
     const xml = origid ? change : order;
 
     tradeking_consumer.post(
-        configuration.api_url + '/accounts/39060524/orders.json',
+        configuration.api_url + `/accounts/${configuration.account}/orders.json`,
         configuration.access_token,
         configuration.access_secret,
         xml,
@@ -152,7 +153,7 @@ function quote(req, res) {
 // --------------------------------------------------------------------------------------------- //
 function orders(req, res) {
     tradeking_consumer.get(
-        configuration.api_url + `/accounts/39060524/orders.json`,
+        configuration.api_url + `/accounts/${configuration.account}/orders.json`,
         configuration.access_token,
         configuration.access_secret,
         async function (error, data, response) {
